@@ -1,6 +1,7 @@
 const _ = require("lodash");
-const debug = require("debug")("crawler");
-debug("starting crawler", new Date());
+const debugGeneral = require("debug")("crawler:general");
+const debugQueue = require("debug")("crawler:queue");
+debugGeneral("starting crawler", new Date());
 
 const visited = [];
 
@@ -10,20 +11,20 @@ const c = new Crawler({
   maxConnections: 1,
   callback: function(error, res, done) {
     if (error) {
-      debug("error at", res.url, "message", error.message);
+      debugGeneral("error at", res.url, "message", error.message);
       console.log(error);
     } else {
-      debug("visited", res.options.uri);
+      debugGeneral("visited", res.options.uri);
       const $ = res.$;
       $("a").each(function() {
         const href = String(this.attribs.href);
         if (href.includes("http://g1.globo.com") && !visited.includes(href)) {
           c.queue(href);
-          // debug("queued url", href);
+          debugQueue("queued url", href);
         }
       });
     }
-    debug("done processing", res.options.uri);
+    debugGeneral("done processing", res.options.uri);
     done();
   }
 });
