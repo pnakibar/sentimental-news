@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Pedro Nakibar <pedronakibar@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "crawler": "^1.0.5",
+    "debug": "^2.6.8",
+    "lodash": "^4.17.4"
+  }
 }
